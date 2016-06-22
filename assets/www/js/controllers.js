@@ -829,6 +829,8 @@ console.log("golas");
 
 });
 CashFlow.controller('SettingsCtrl',function($state,$scope){
+
 console.log("SettingsCtrl");
+//all details added later on
 
 });
