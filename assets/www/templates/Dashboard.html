@@ -1,0 +1,152 @@
+
+<ion-view >
+    <div class="bar bar-header bar-light">
+  <h1 class="title" style="color:#03c8d0">Dashboard</h1>
+  <button class="button button-clear button-positive" ng-click="openModal()">Add</button>
+</div>
+   <!--<ion-nav-buttons side="right">
+      <button class="button" ng-click="openModal()">
+        <i class="icon ion-person-add"></i>
+      </button>
+    </ion-nav-buttons>-->
+
+  <ion-content class="padding-top padding-top">
+    <ion-list>
+           <ion-item  class="item item-remove-animate card" ng-click="DetailsScenario()">
+                <div class="row">
+                    <div class="col col-20"> 
+                        <img ng-if="!!VM.Profile.Client.Photo" class="clt-profile-img" ng-src="{{apiFileDir+'/'+VM.Profile.Client.Photo}}" /> 
+                        <img ng-if="(!!VM.Profile.Client.Photo)==false" class="clt-profile-img1" src="img/adam.jpg" /><br>
+                        <img ng-if="(!!VM.Profile.Client.Photo)==false" class="clt-profile-img2" src="img/max.png" />
+                    </div>
+                    <div class="col col-30" style="font-size: 16px;" >
+                      <div style="padding: 4px; padding-top: 6px;">
+                      <div class="aaaa" style="padding: 4px 0;"><span><b> Client ID </b></span> :&nbsp;&nbsp;&nbsp;  1057</div>
+                      <div class="aaaa" style="padding: 4px 0;"><span>   <b>Client Name</b></span>  :&nbsp;&nbsp;&nbsp; azad Singh</div>
+                      <div class="aaaa" style="padding: 4px 0;"><span>  <b>D.O.B</b></span>   :&nbsp;&nbsp;&nbsp;19-06-1992</div>
+                      </div>
+                      <div style="padding: 4px; padding-top: 27px;">
+                      <div class="aaaa" style="padding: 4px 0;"><span><b> Client ID </b></span> :&nbsp;&nbsp;&nbsp;  1057</div>
+                      <div class="aaaa" style="padding: 4px 0;"><span>   <b>Client Name</b></span>  :&nbsp;&nbsp;&nbsp; azad Singh</div>
+                      <div class="aaaa" style="padding: 4px 0;"><span>  <b>D.O.B</b></span>   :&nbsp;&nbsp;&nbsp;19-06-1992</div>
+                      </div>
+                    </div>
+                    <div class="col col-50 verticalLine " style="padding: 20px;font-size: 16px;padding-top: 54px;">
+                     
+                          
+                        <div class="aaaa" style="padding: 4px 0;"><span><b>Created at</b></span>&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp;&nbsp; 2105-01-05</div>
+                        <div class="aaaa" style="padding: 4px 0;"><span><b>Created by </b></span>&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp;&nbsp; John Smith</div>
+                        <div class="aaaa" style="padding: 4px 0;"><span><b>Created at</b></span>&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp;&nbsp; 2105-01-05</div>
+                        <div class="aaaa" style="padding: 4px 0;"><span><b>Created by </b></span>&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp;&nbsp; John Smith</div>
+                        </div>
+                    <i class="icon ion-chevron-right icon-accessory" style="margin-top: 100px;margin-right: -40px;"></i>
+                </div>
+                <ion-option-button class="color1" ng-click="remove(chat)">
+                    Delete
+                </ion-option-button>
+                <ion-option-button class="color1" ng-click="remove(chat)">
+                    Edit
+                </ion-option-button>
+           </ion-item>
+           <ion-item  class="item item-remove-animate card">
+                <div class="row">
+                    <div class="col col-20"> 
+                        <img ng-if="!!VM.Profile.Client.Photo" class="clt-profile-img" ng-src="{{apiFileDir+'/'+VM.Profile.Client.Photo}}" /> 
+                        <img ng-if="(!!VM.Profile.Client.Photo)==false" class="clt-profile-img1" src="img/adam.jpg" /><br>
+                        <img ng-if="(!!VM.Profile.Client.Photo)==false" class="clt-profile-img2" src="img/max.png" />
+                    </div>
+                    <div class="col col-30" style="font-size: 16px;" >
+                      <div style="padding: 4px; padding-top: 6px;">
+                      <div class="aaaa" style="padding: 4px 0;"><span><b> Client ID </b></span> :&nbsp;&nbsp;&nbsp;  1057</div>
+                      <div class="aaaa" style="padding: 4px 0;"><span>   <b>Client Name</b></span>  :&nbsp;&nbsp;&nbsp; azad Singh</div>
+                      <div class="aaaa" style="padding: 4px 0;"><span>  <b>D.O.B</b></span>   :&nbsp;&nbsp;&nbsp;19-06-1992</div>
+                      </div>
+                      <div style="padding: 4px; padding-top: 27px;">
+                      <div class="aaaa" style="padding: 4px 0;"><span><b> Client ID </b></span> :&nbsp;&nbsp;&nbsp;  1057</div>
+                      <div class="aaaa" style="padding: 4px 0;"><span>   <b>Client Name</b></span>  :&nbsp;&nbsp;&nbsp; azad Singh </div>
+                      <div class="aaaa" style="padding: 4px 0;"><span>  <b>D.O.B</b></span>   :&nbsp;&nbsp;&nbsp;19-06-1992</div>
+                      </div>
+                    </div>
+                    <div class="col col-50 verticalLine " style="padding: 20px;font-size: 16px;padding-top: 54px;">
+                     
+                          
+                        <div class="aaaa" style="padding: 4px 0;"><span><b>Created at</b></span>&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp;&nbsp; 2105-01-05</div>
+                        <div class="aaaa" style="padding: 4px 0;"><span><b>Created by </b></span>&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp;&nbsp; John Smith</div>
+                        <div class="aaaa" style="padding: 4px 0;"><span><b>Created at</b></span>&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp;&nbsp; 2105-01-05</div>
+                        <div class="aaaa" style="padding: 4px 0;"><span><b>Created by </b></span>&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp;&nbsp; John Smith</div>
+                        </div>
+                    <i class="icon ion-chevron-right icon-accessory" style="margin-top: 100px;margin-right: -40px;"></i>
+                </div>
+                <ion-option-button class="color1" ng-click="remove(chat)">
+                    Delete
+                </ion-option-button>
+                <ion-option-button class="color1" ng-click="remove(chat)">
+                    Edit
+                </ion-option-button>
+           </ion-item>
+         
+    </ion-list>
+  </ion-content>
+</ion-view>
+
+<script id="AddScenario.html" type="text/ng-template">
+    <ion-modal-view>
+            <ion-header-bar >
+                <h1 class="title">Add New Scenario</h1>
+                
+            </ion-header-bar>
+            <ion-content>
+                <form ng-submit="AddScenario(addScenario)">
+                    <ion-input class="item item-input ">
+                        <ion-label class="input-label">RiskProfile Type  </ion-label>
+                        <input type="number" ng-model="addScenario.Type">
+                    </ion-input>
+                    <span id="spnMsgRisk" style="color:red"></span>
+                    <ion-input class="item item-input ">
+                        <ion-label class="input-label">Description  </ion-label>
+                        <input type="text" id="Description" ng-model="addScenario.Desc">
+                    </ion-input>
+                    <span id="spnMsgDescription" style="color:red"></span>
+                    <ion-input class="item item-input ">
+                        <ion-label class="input-label">Duration</ion-label>
+                        <input type="number" id="Duration" ng-model="addScenario.duration">
+                    </ion-input>
+                    <span id="spnMsgDuration" style="color:red"></span>
+                    <ion-input class="item item-input item-select">
+                        <ion-label class="input-label">  Start Year</ion-label>
+                        <select ng-model="addScenario.startYear">
+                            <option>2016</option>
+                            <option>2017</option>
+                            <option>2018</option>
+                            <option>2019</option>
+                            <option>2020</option>
+                            <option>2021</option>
+                        </select>
+                    </ion-input>
+                    <span id="spnMsg" style="color:red"></span>
+                    <ion-input class="item item-input ">
+                        <ion-label class="input-label">CPI  </ion-label>
+                        <input type="number" id="CPI" ng-model="addScenario.cpi">
+                    </ion-input>
+                    <span id="spnMsgCPI" style="color:red"></span>
+                    <ion-input class="item item-input ">
+                        <ion-label class="input-label">AWOTE  </ion-label>
+                        <input type="number" id="AWOTE" ng-model="addScenario.awote">
+                    </ion-input>
+                    <span id="spnMsgAwote" style="color:red"></span>
+                    <ion-input class="item item-input ">
+                        <ion-label class="input-label">ClientRetirementAge  </ion-label>
+                        <input type="number" id="ClientRetirementAge" ng-model="addScenario.cltRtmntAge">
+                    </ion-input>
+                    <span id="spnMsgClientRetirementAge" style="color:red"></span>
+                    <ion-input class="item item-input ">
+                        <ion-label class="input-label">PartnerRetirementAge  </ion-label>
+                        <input type="number" id="PartnerRetirementAge" ng-model="addScenario.PtrRtmntAge">
+                    </ion-input>
+                    <span id="spnMsgPartnerRetirementAge" style="color:red"></span>
+                    <button class="button button-block button-positive" ng-click="testing()" type="submit">
+                        Save </button>
+                </form>
+            </ion-content>
+    </ion-modal-view>
+</script>

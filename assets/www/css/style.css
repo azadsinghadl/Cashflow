@@ -1,0 +1,129 @@
+/* Empty. Add your own CSS if you like */
+
+.clt-profile-img1 {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    margin: 0 auto;
+    text-align: left;
+}
+.clt-profile-img2 {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    margin: 0 auto;
+    margin-top: 10px;
+    text-align: left;
+}
+.clt-profile-img3 {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    margin: 0 auto;
+    text-align: left;
+}
+.verticalLine {
+    border-left: 1px solid #03c8d0 ;
+   
+    
+
+}
+   .bar.bar-stable .title {
+    color: #03c8d0;
+    background-color: white;
+}
+.color1{
+background-color: #03c8d0;
+color: white;
+}
+.color1 ~ .color1{
+margin-left: -1px;
+}
+
+    .aaaa span{
+      width:100px;
+      float: left;
+    }
+    .card {
+    box-shadow: 0 0px 0px rgba(0, 0, 0, 0.3);
+}
+.cf-dashboard .item-complex .item-content{
+    padding: 8px 49px 8px 16px;
+}
+.padding .card, .padding .list-inset {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+a{
+    color: #03c8d0;
+}
+h4, .h4 {
+    font-size: 18px;
+    text-align: left;
+}
+
+.addScenario-wraper {
+    text-align: center;
+    width: 728px;
+    display: block;
+}
+        .addScenario-wraper .smallCard {
+              width: 192px;
+    height: 192px;
+    line-height: 146px;
+        }
+    .addScenario-wraper .smallCard .title {
+          display: inline-block;
+    vertical-align: middle;
+    font-size: 2.2rem;
+    min-height: auto;
+    }
+    @media screen and (orientation:landscape) {
+      .addScenario-wraper .smallCard {
+              width: 188px;
+    height: 188px;
+        }
+    }
+
+.addScenario-wraper {
+    text-align: center;
+    width: 728px;
+    display: block;
+}
+        .addScenario-wraper .smallCard {
+              width: 192px;
+    height: 192px;
+    line-height: 146px;
+        }
+    .addScenario-wraper .smallCard .title {
+          display: inline-block;
+    vertical-align: middle;
+    font-size: 2.2rem;
+    min-height: auto;
+    }
+    @media screen and (orientation:landscape) {
+      .addScenario-wraper .smallCard {
+              width: 188px;
+    height: 188px;
+        }
+    }
+
+.scenario-Tabs {
+    /*color: #fff;
+     opacity: .9;
+     background: #4d394b;*/
+}
+/*.scenario-Tabs .tabs {
+    background: #03c8d0;
+}*/
+.scenario-Tabs .tab-item {
+    color: #000000 !important;
+    background: #fff !important;
+}
+.scenario-Tabs .tab-item.active {
+    height: calc(100% + -1px);
+}
+.title{
+    color: #03c8d0;
+}
+

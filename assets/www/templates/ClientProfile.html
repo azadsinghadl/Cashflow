@@ -1,0 +1,66 @@
+<ion-view >
+    <div class="bar bar-header">
+        <button class="button button-clear button-positive icon ion-chevron-left" ng-click="showDashboard()">Home</button>
+        <div class="h1 title">Client Profile</div>
+    </div>
+<!--<ion-nav-buttons side="left">
+  <button class="button button-clear btn-back" ><i class="ion-chevron-left"></i> Home</button>
+</ion-nav-buttons>-->
+<ion-floating-menu has-footer="true">
+    <ion-floating-item icon="ion-camera" click="ClientEdit()" text="Client"></ion-floating-item>
+    <ion-floating-item icon="ion-person" click="PartnerEdit()" text="Partner"></ion-floating-item>
+    <ion-floating-item icon="ion-person" click="IncomeEdit()" text="Income"></ion-floating-item>
+    <ion-floating-item icon="ion-person" click="LiabilitiesEdit()" text="Liabilities"></ion-floating-item>
+    <ion-floating-item icon="ion-person" click="InvestmentEdit()" text="Investment"></ion-floating-item>
+    <ion-floating-item icon="ion-person" click="InsuranceEdit()" text="Insurance Policy"></ion-floating-item>
+    <ion-floating-item icon="ion-person" click="AssetsEdit()" text="Asset Allocation"></ion-floating-item>
+</ion-floating-menu>
+  <ion-content class="padding">
+<div >
+           <div class="card">
+                <div class="row">
+                    <div class="col col-50 text-center" style="position:relative;">
+                      <h4>Client</h4> 
+                        <img ng-if="!!VM.Profile.Client.Photo" class="clt-profile-img" ng-src="{{apiFileDir+'/'+VM.Profile.Client.Photo}}" /> 
+                        <img ng-if="(!!VM.Profile.Client.Photo)==false" class="clt-profile-img3" src="img/adam.jpg" />
+                        <h5 class="clt-name">Mark Handscomb</h5>
+                    </div>
+                    <div class="col col-50 verticalLine">
+                        <div class="list adl-hr-left">
+                            <div class="item item-icon-left"  > <i style="color:#03c8d0" class="ion-card"></i>  &nbsp; &nbsp;3 Dec 1975 </div>
+                            <div class="item item-icon-left" style="color:#03c8d0"> <i class="ion-email"></i> <a href="mailto:" >Azadkanwar@gmail.com </div>
+                            <div class="item item-icon-left" style="color:#03c8d0"> <i class="ion-email"></i> <a href="mailto:{{}}" class="mailAddress">aza</a> </div>
+                            <div class="item item-icon-left" style="color:#03c8d0"> <i class="ion-ios-telephone-outline"></i> <a href="tel:{{VM.Profile.Client.Mobile}}">656455156165</a> </div>
+                            <div class="item item-icon-left" ng-if="VM.Profile.Client.HomePhone"> <i class="ico-mo hPhone"></i> <a href="tel:{{VM.Profile.Client.HomePhone}}">{{VM.Profile.Client.HomePhone}}</a> </div>
+                            <div class="item item-icon-left" ng-if="VM.Profile.Client.WorkPhone"> <i class="ico-mo wPhone"></i> <a href="tel:{{VM.Profile.Client.WorkPhone}}">{{VM.Profile.Client.WorkPhone}}</a> </div>
+                            <div class="item item-icon-left"  style="padding-right: 28px;"> <i class="ico-mo hAddr"></i> gurgoan <span class="badge" ng-click="openmaps(VM.Profile.Client.HomeAddress)"><i class="icon ion-ios-navigate-outline location-icon"></i></span> </div>
+                            <div class="item item-icon-left" ng-if="VM.Profile.Client.Notes"> <i class="ico-mo cNotes"></i> {{VM.Profile.Client.Notes}} </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="row">
+                    <div class="col col-50 text-center" style="position:relative;">
+                      <h4>Partner</h4> 
+                        <img ng-if="!!VM.Profile.Client.Photo" class="clt-profile-img" ng-src="{{apiFileDir+'/'+VM.Profile.Client.Photo}}" /> 
+                        <img ng-if="(!!VM.Profile.Client.Photo)==false" class="clt-profile-img3" src="img/max.png" />
+                        <h5 class="clt-name">Mark Handscomb</h5>
+                    </div>
+                    
+                    <div class="col col-50 verticalLine">
+                        <div class="list adl-hr-left">
+                            <div class="item item-icon-left"  > <i style="color:#03c8d0" class="ion-card"></i>  &nbsp; &nbsp;3 Dec 1975 </div>
+                            <div class="item item-icon-left" style="color:#03c8d0"> <i class="ion-email"></i> <a href="mailto:" >Azadkanwar@gmail.com </div>
+                            <div class="item item-icon-left" style="color:#03c8d0"> <i class="ion-email"></i> <a href="mailto:{{}}" class="mailAddress">aza</a> </div>
+                            <div class="item item-icon-left" style="color:#03c8d0"> <i class="ion-ios-telephone-outline"></i> <a href="tel:{{VM.Profile.Client.Mobile}}">656455156165</a> </div>
+                            <div class="item item-icon-left" ng-if="VM.Profile.Client.HomePhone"> <i class="ico-mo hPhone"></i> <a href="tel:{{VM.Profile.Client.HomePhone}}">{{VM.Profile.Client.HomePhone}}</a> </div>
+                            <div class="item item-icon-left" ng-if="VM.Profile.Client.WorkPhone"> <i class="ico-mo wPhone"></i> <a href="tel:{{VM.Profile.Client.WorkPhone}}">{{VM.Profile.Client.WorkPhone}}</a> </div>
+                            <div class="item item-icon-left"  style="padding-right: 28px;"> <i class="ico-mo hAddr"></i> gurgoan <span class="badge" ng-click="openmaps(VM.Profile.Client.HomeAddress)"><i class="icon ion-ios-navigate-outline location-icon"></i></span> </div>
+                            <div class="item item-icon-left" ng-if="VM.Profile.Client.Notes"> <i class="ico-mo cNotes"></i> {{VM.Profile.Client.Notes}} </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+  </ion-content>
+</ion-view>

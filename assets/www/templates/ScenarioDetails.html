@@ -1,0 +1,877 @@
+<ion-view >
+<div class="bar bar-header">
+  <button class="button button-clear button-positive icon ion-chevron-left" ng-click="showScenario()">Scenarios</button>
+  <div class="title" align-title="center">Current Scenario 1</div>
+  <button class="button button-clear button-positive icon ion-ios-plus-outline" ng-click="openPopover($event)" ></button>
+  <label class="toggle" style="margin-left: 470px;">
+   <input type="checkbox">
+   <div class="track">
+     <div class="handle"></div>
+   </div>
+</label>
+</div>
+<!--<ion-nav-buttons side="right">
+ 
+        <button class="button button-clear btn-back" ng-click="addContent()" style="width: 44px !important;"><i class="ion-ios-plus-outline" style="font-size: 2.4rem;"></i></button>
+    </ion-nav-buttons>-->
+
+    <div class="tabs-striped tabs-top scenario-Tabs">
+        <div class="tabs">
+            <a class="tab-item active" ng-click="AssetsData()">
+        Assets
+      </a>
+            <a class="tab-item " ng-click="liabilityData()">
+        
+        Liabilities
+      </a>
+            <a class="tab-item" ng-click="TaxationData()">
+        Taxation
+      </a>
+            <a class="tab-item" ng-click="SuperData()">
+        Super
+      </a>
+            <a class="tab-item" ng-click="PensionData()">
+        Pension
+      </a>
+            <a class="tab-item" ng-click="Age_PensionData()">
+        Age Pension
+      </a>
+        </div>
+    </div>
+
+
+    <ion-content class="padding">
+        <div id="container"></div>
+        <div id="excelArea"  style="height:600px;margin-top: 100px;"></div>
+    </ion-content>
+</ion-view>
+
+<!-------------------------------------------------------menu form popover---------------------------------------------------------->
+<script id="EditFormList.html" type="text/ng-template">
+  <ion-popover-view>
+    <ion-content>
+     <div class="list">
+  <button class="item" ng-click="addIncome()">
+    Income
+  </button>
+  <button class="item" ng-click="addExpense()">
+    Expenses
+  </button>
+   <button class="item" ng-click="addSuperContribution()">
+    Super Contributions
+  </button>
+   <button class="item" ng-click="addAssets()">
+    Assets
+  </button>
+   <button class="item" ng-click="addLiabilities()">
+    Liabilities
+  </button>
+  <button class="item" ng-click="addSuperAnnutation()">
+    Super Annuation
+  </button>
+  <button class="item" ng-click="addPensions()">
+    Pension
+  </button>
+</div> 
+    </ion-content>
+  </ion-popover-view>
+</script>
+
+<!----------------------------------------------add income model----------------------------------------------->
+
+<script id="incomeDetails.html" type="text/ng-template" >
+    <ion-modal-view class="xyz">
+        <ion-view view-title="Income Details" hide-back-button="false">
+            <!--<ion-nav-buttons side="left">
+      <button class="button button-clear" ng-click="myGoBack()"><i class="ion-chevron-left"></i>Back</button>
+    </ion-nav-buttons>-->
+            <ion-header-bar class="bar bar-header bar-positive">
+                <h1 class="title">Add Income details</h1>
+            </ion-header-bar>
+            <ion-content>
+                <!--<ion-content class="has-tabs" has-header="ture" has-bouncing="true" scrollbar-x="false" scrollbar-y="false">-->
+                <!-- Title -->
+                <form name="AddIncomeForm" class="editableForm" ng-submit="saveIncome(income)">
+                    <ion-input class="item item-input item-select">
+                        <ion-label class="input-label">Income Type</ion-label>
+                        <select id="TypeID" ng-model="income.type" ng-change="typeIDchange()">
+                            <option value="1">Employement</option>
+                            <option value="2">Other</option>
+                        </select>
+                    </ion-input>
+
+                    <ion-input class="item item-input item-select">
+                        <ion-label class="input-label">Owner</ion-label>
+                        <select ng-model="income.OwnerId">
+                            <option value="0">Client</option>
+                            <option value="1">Partner</option>
+                            <option value="2">Joint</option>                           
+                        </select>
+                    </ion-input>
+
+                    <ion-input class="item item-input item-select">
+                        <ion-label class="input-label">Start Date Type</ion-label>
+                        <select id="IncStartDateTypeId" ng-model="income.start_date_type" ng-change="DataFieldChange()">
+                            <option value="1" selected>At Client Age</option>
+                            <option value="2">At Partner Age</option>
+                            <option value="3">In Years</option>
+                            <option value="4">At Client Retirement Age</option>
+                            <option value="5">At Partner Retirement Age</option>
+                            <option value="6">Date</option>
+                        </select>
+                    </ion-input>
+                    
+                    <ion-input class="item item-input " ng-if="IncstartValueIf">
+                        <ion-label class="input-label">Start Value</ion-label>
+                        <input type="number" id="IncStartDateTypeValues" ng-model="income.startDate">
+                    </ion-input>
+                    <ion-input class="item item-input " ng-if="IncStartDateIf">
+                        <ion-label class="input-label">Start Date</ion-label>
+                        <input type="date" id="IncStartDate" ng-model="income.startDate">
+                    </ion-input>
+                    <span id="spnMsgStartDate" style="color:red"></span>
+                    <!--<ion-input class="item item-input ">
+                        <ion-label class="input-label">ID </ion-label>
+                        <input type="text" ng-model="income.id">
+                    </ion-input>-->
+                    <ion-input class="item item-input ">
+                        <ion-label class="input-label">Amount</ion-label>
+                        <input type="number" id="Amount" step="0.01" ng-model="income.Amount">
+                    </ion-input>
+                    <span id="spnMsgAmount" style="color:red"></span>
+                    <ion-input class="item item-input item-select">
+	                    <ion-label class="input-label">Growth Rate Type</ion-label>
+                            <select id="GrowthRateTypeId" ng-change="GrowthRateChange()" ng-model="income.growth">
+                                <option value="1">CPI</option>
+                                <option value="2">AWOTE</option>
+                                <option value="3">Other</option>
+                            </select>
+                    </ion-input>
+                    <ion-input class="item item-input " ng-if="IncgrowthRateIf">
+                        <ion-label class="input-label">Growth Rate</ion-label>
+                        <input type="text" id="GrowthRate" ng-model="income.growthRate">
+                    </ion-input>
+                    <span id="spnMsgGrowthRate" style="color:red"></span>
+                    <ion-input class="item item-input item-select">
+                        <ion-label class="input-label">Duration Type</ion-label>
+                        <select id="DurationTypeId" ng-change="DurationChange()" ng-model="income.duration_type">
+                            <option value="1">At Client Age</option>
+                            <option value="2">At Partner Age</option>
+                            <option value="3">In Years</option>
+                            <option value="4">At Client Retirement Age</option>
+                            <option value="5">At Partner Retirement Age</option>
+                            <option value="6">Date</option>
+                        </select>
+                    </ion-input>
+
+                    <ion-input class="item item-input " ng-if="IncEndValueIf">
+                        <ion-label class="input-label">End Value</ion-label>
+                        <input type="number" id="DurationEndValues" ng-model="income.end_value">
+                    </ion-input>
+                    <ion-input class="item item-input " ng-if="IncDurationEndIf">
+                        <ion-label class="input-label">Duration End</ion-label>
+                        <input type="date" id="DurationEnd" ng-model="income.durationEnd">
+                    </ion-input>
+                    <span id="spnMsgDurationType" style="color:red"></span>
+                    <ion-input class="item item-input " ng-if="IncSupercontribIf">
+                        <ion-label class="input-label">Super Contributions</ion-label>
+                        <input type="number" ng-model="income.super_contribution">
+                    </ion-input>
+
+                    <ion-checkbox id="chkTaxable" ng-model="income.Taxable">Taxable</ion-checkbox>
+
+                    <ion-checkbox ng-if="IncCenterLinkIf" ng-model="income.centrelink">Centrelink Exempt</ion-checkbox>
+
+
+                    <div class="item item-input item-divider blueColor">Description</div>
+
+                    <ion-input class="item item-input">
+                        <textarea name="txtarea1" id="Description" cols="50" rows="4" ng-model="income.Description"></textarea>
+                    </ion-input>
+                    <span id="spnMsgDescription" style="color:red"></span>
+                    <button class="button button-block button-positive" type="submit">
+                        Save </button>
+                </form>
+            </ion-content>
+    </ion-modal-view>
+    </ion-view>
+
+</script>
+
+<!-----------------------------------------------Expense details---------------------------------------------->
+<script id="expenseDetails.html" type="text/ng-template">
+    <ion-modal-view>
+        <ion-view view-title="Expense Details" hide-back-button="false">
+            <!--<ion-nav-buttons side="left">
+      <button class="button button-clear" ng-click="myGoBack()"><i class="ion-chevron-left"></i>Back</button>
+    </ion-nav-buttons>-->
+            <ion-header-bar class="bar bar-header bar-positive">
+                <h1 class="title">Add Expense details</h1>
+            </ion-header-bar>
+            <ion-content>
+                <!-- Title -->
+                <form name="expensesForm" class="editableForm" ng-submit="saveExpense(expense)">
+                    <ion-input class="item item-input item-select">
+                        <ion-label class="input-label"> Expense Type</ion-label>
+                        <select id="ExpExpenseType" ng-model="expense.type">
+                            <option>LifeStyle</option>
+                            <option>Education</option>
+                            <option>Other Discretionary</option>
+                            <option>Other Non Discretionary</option>
+                        </select>
+                    </ion-input>
+
+                    <ion-input class="item item-input item-select">
+                        <ion-label class="input-label"> Owner</ion-label>
+                        <select id="ExpOwner" ng-model="expense.OwnerId">
+                            <option value="0">Client</option>
+                            <option value="1">Partner</option>
+                        </select>
+                    </ion-input>
+
+                    <ion-input class="item item-input item-select">
+                        <ion-label class="input-label"> Start Date Type</ion-label>
+                        <select id="ExpStartDateTypeId" ng-change="ExpStartDateType()" ng-model="expense.start_date">
+                            <option value="1">At Client Age</option>
+                            <option value="2">At Partner Age</option>
+                            <option value="3">In Years</option>
+                            <option value="4">At Client Retirement Age</option>
+                            <option value="5">At Partner Retirement Age</option>
+                            <option value="6">Date</option>
+                        </select>
+                    </ion-input>
+
+                    <ion-input class="item item-input " ng-if="ExpStartValueIf">
+                        <ion-label class="input-label">Start Value </ion-label>
+                        <input type="text" id="ExpStartValue" ng-model="expense.start_value">
+                    </ion-input>
+                     <ion-input class="item item-input " ng-if="ExpStartDateIf">
+                        <ion-label class="input-label">Start Date </ion-label>
+                        <input type="date" id="ExpStartDate" ng-model="expense.start_value">
+                    </ion-input>
+                    <span id="spnMsgStartDate" style="color:red"></span>
+                    <ion-input class="item item-input ">
+                        <ion-label class="input-label">Amount </ion-label>
+                        <input type="text" id="ExpAmount" ng-model="expense.Amount">
+                    </ion-input>
+                    <span id="spnMsgAmount" style="color:red"></span>
+                    <ion-input class="item item-input item-select">
+                        <ion-label class="input-label"> Growth Rate Type</ion-label>
+                        <select id="ExpGrowthRateType" ng-change="ExpGrowthRate()" ng-model="expense.growth">
+                            <option value="1">CPI</option>
+                            <option value="2">AWOTE</option>
+                            <option value="3">Other</option>
+                        </select>
+                    </ion-input>
+                    <ion-input class="item item-input " ng-if="ExpgrowthRateIf">
+                        <ion-label class="input-label">Growth Rate </ion-label>
+                        <input type="text" id="ExpGrowthRate" ng-model="expense.growthRate">
+                    </ion-input>
+                    <span id="spnMsgGrowthRate" style="color:red"></span>
+                    <ion-input class="item item-input item-select">
+                        <ion-label class="input-label"> Frequency Type</ion-label>
+                        <select id="ExpFrequencyType" ng-change="ExpFrequencyRate()" ng-model="expense.end_value">
+                            <option value="1">Regular</option>
+                            <option value="2">In Intervals</option>
+                        </select>
+                    </ion-input>
+                    <ion-input class="item item-input " ng-if="ExpFrequencyValueIf">
+                        <ion-label class="input-label">Frequency Value </ion-label>
+                        <input type="text" id="ExpFrequencyValue" ng-model="expense.FrequencyValue">
+                    </ion-input>
+                    <ion-input class="item item-input item-select">
+                        <ion-label class="input-label"> Duration Type</ion-label>
+                        <select id="ExpDurationType" ng-change="ExpDurationDateType()" ng-model="expense.duration_type">
+                            <option value="1">At Client Age</option>
+                            <option value="2">At Partner Age</option>
+                            <option value="3">In Years</option>
+                            <option value="4">At Client Retirement Age</option>
+                            <option value="5">At Partner Retirement Age</option>
+                            <option value="6">Date</option>
+                        </select>
+                    </ion-input>
+
+                    <ion-input class="item item-input " ng-if="ExpEndValueIf">
+                        <ion-label class="input-label"> End Value</ion-label>
+                        <input type="text" id="ExpEndValue" ng-model="expense.EndValue">
+                    </ion-input>
+                    <ion-input class="item item-input " ng-if="ExpDurationEndIf">
+                        <ion-label class="input-label"> Duration End</ion-label>
+                        <input type="date" id="ExpDurationEnd" ng-model="expense.DurationEnd">
+                    </ion-input>
+                    <span id="spnMsgDurationType" style="color:red"></span>
+                    <ion-checkbox id="ExpTexable" ng-model="expense.Taxable">Taxable</ion-checkbox>
+                    <div class="item item-input item-divider blueColor">Description</div>
+
+                    <ion-input class="item item-input">
+                        <textarea name="txtarea1" id="ExpDescription"  ng-model="expense.Description"></textarea>
+                    </ion-input>
+                    <span id="spnMsgDescription" style="color:red"></span>
+                    <button class="button button-block button-positive" type="submit">
+                        Save </button>
+                </form>
+
+            </ion-content>
+    </ion-modal-view>
+    </ion-view>
+
+</script>
+
+
+<!-----------------------------------------Super contribution---------------------------------------------------------->
+
+<script id="conrtibutionDetails.html" type="text/ng-template">
+    <ion-modal-view>
+        <ion-view view-title="Income Details" hide-back-button="false">
+            <!--<ion-nav-buttons side="left">
+      <button class="button button-clear" ng-click="myGoBack()"><i class="ion-chevron-left"></i>Back</button>
+    </ion-nav-buttons>-->
+            <ion-header-bar class="bar bar-header bar-positive">
+                <h1 class="title">Add Contribution</h1>
+            </ion-header-bar>
+            <ion-content>
+                <form name="SuperContributions" class="editableForm" ng-submit="saveSuperContributions(contrib)">
+                    <ion-input class="item item-input item-select">
+                        <ion-label class="input-label">  Contribution Type</ion-label>
+                        <select ng-model="contrib.ContTypeId">
+                            <option>Concessional</option>
+                            <option>Non Concessional</option>
+                        </select>
+                    </ion-input>
+
+                    <ion-input class="item item-input item-select">
+                        <ion-label class="input-label">  Owner</ion-label>
+                        <select ng-model="contrib.Owner">
+                            <option value="0">Client</option>
+                            <option value="1">Partner</option>
+                        </select>
+                    </ion-input>
+
+                    <ion-input class="item item-input item-select">
+                        <ion-label class="input-label">Contribution StartDate Type</ion-label>
+                        <select id="ConStartDateType" ng-change="ConStartDateType()" ng-model="contrib.StartDate">
+                            <option value="1">At Client Age</option>
+                            <option value="2">At Partner Age</option>
+                            <option value="3">In Years</option>
+                            <option value="4">At Client Retirement Age</option>
+                            <option value="5">At Partner Retirement Age</option>
+                            <option value="6">Date</option>
+                        </select>
+                    </ion-input>
+
+                    <ion-input class="item item-input " ng-if="ConStartValueIf">
+                        <ion-label class="input-label">Start Value  </ion-label>
+                        <input type="number" id="ConStartValue" ng-model="contrib.start_value">
+                    </ion-input>
+                    <ion-input class="item item-input " ng-if="ConStartDateIf">
+                        <ion-label class="input-label">Start Date  </ion-label>
+                        <input type="Date" id="ConStartDate" ng-model="contrib.startDate">
+                    </ion-input>
+                    <span id="spnMsgConStartDateType" style="color:red"></span>
+                    <ion-input class="item item-input item-select">
+                        <ion-label class="input-label">  Ammount Type</ion-label>
+                        <select id="ConAmountType" ng-change="ConAmountType()" ng-model="contrib.Amount_type_id">
+                            <option value="1">Input$</option>
+                            <option value="2">Maximum</option>
+                        </select>
+                    </ion-input>
+
+                    <ion-input class="item item-input " ng-if="ConAmountIf">
+                        <ion-label class="input-label">Amount  </ion-label>
+                        <input type="number" id="ConAmount" ng-model="contrib.Amount">
+                    </ion-input>
+
+                    <ion-input class="item item-input item-select">
+                        <ion-label class="input-label">  Growth Rate Type</ion-label>
+                        <select id="ConGrowthRateType" ng-change="ConGrowthRateType()" ng-model="contrib.growth">
+                            <option value="1">CPI</option>
+                            <option value="2">AWOTE</option>
+                            <option value="3">Other</option>
+                        </select>
+                    </ion-input>
+                    <ion-input class="item item-input " ng-if="ConGrowthRateIf">
+                        <ion-label class="input-label">Growth Rate
+                              </ion-label>
+                        <input type="number" ng-model="contrib.Amount">
+                    </ion-input>
+                    <ion-input class="item item-input item-select">
+                        <ion-label class="input-label">  Duration Type</ion-label>
+                        <select id="ConDurationType" ng-change="ConDurationType()" ng-model="contrib.duration_type">
+                            <option value="1">At Client Age</option>
+                            <option value="2">At Partner Age</option>
+                            <option value="3">In Years</option>
+                            <option value="4">At Client Retirement Age</option>
+                            <option value="5">At Partner Retirement Age</option>
+                            <option value="6">Date</option>
+                        </select>
+                    </ion-input>
+
+                    <ion-input class="item item-input" ng-if="ConEndValueIf">
+                        <ion-label class="input-label">  End Value</ion-label>
+                        <input type="text" id="ConEndValue" ng-model="contrib.end_value">
+                    </ion-input>
+                     <ion-input class="item item-input" ng-if="ConDurationDateIf">
+                        <ion-label class="input-label">  Duration Date</ion-label>
+                        <input type="date" id="ConDurationDate" ng-model="contrib.end_value">
+                    </ion-input>
+                    <span id="spnMsgConDurationType" style="color:red"></span>
+                    <div class="item item-input item-divider blueColor">Description</div>
+                    <ion-input class="item item-input">
+                        <textarea name="txtarea1" id="ConDescription" ng-model="liabilities.Description"></textarea>
+                    </ion-input>
+                    <button class="button button-block button-positive" type="submit">
+                        Save </button>
+                </form>
+
+            </ion-content>
+    </ion-modal-view>
+    </ion-view>
+
+</script>
+
+<!--------------------------------------Assets details--------------------------------------------------------------->
+
+<script id="assetsDetails.html" type="text/ng-template">
+    <ion-modal-view>
+        <ion-view view-title="Income Details" hide-back-button="false">
+            <!--<ion-nav-buttons side="left">
+      <button class="button button-clear" ng-click="myGoBack()"><i class="ion-chevron-left"></i>Back</button>
+    </ion-nav-buttons>-->
+            <ion-header-bar class="bar bar-header bar-positive">
+                <h1 class="title">Add Assets details</h1>
+            </ion-header-bar>
+            <ion-content>
+                <form name="Assets" class="editableForm" ng-submit="saveAssets(assets)">
+                    <ion-input class="item item-input item-select">
+                        <ion-label class="input-label">  Investment Class Type</ion-label>
+                        <select id="AssInvestmentClassTypeID" ng-change="AssInvestmentClassType()" ng-model="assets.investmentClassId">
+                            <option value="1">Faimly Home</option>
+                            <option value="2">Investment Property</option>
+                            <option value="3">Investment Portfolio</option>
+                            <option value="4">Personal Assets</option>
+                        </select>
+                    </ion-input>
+
+                    <ion-input class="item item-input item-select">
+                        <ion-label class="input-label">  Owner</ion-label>
+                        <select ng-model="assets.Owner">
+                            <option>Client</option>
+                            <option>Partner</option>
+                        </select>
+                    </ion-input>
+
+                    <ion-input class="item item-input item-select">
+                        <ion-label class="input-label">  Start Date Type</ion-label>
+                        <select id="AssStartDateType" ng-change="AssStartDateType()" ng-model="assets.StartDateType">
+                            <option value="1">At Client Age</option>
+                            <option value="2">At Partner Age</option>
+                            <option value="3">In Years</option>
+                            <option value="4">At Client Retirement Age</option>
+                            <option value="5">At Partner Retirement Age</option>
+                            <option value="6">Date</option>
+                        </select>
+                    </ion-input>
+                     <ion-input class="item item-input " ng-if="AssStartValueIf">
+                        <ion-label class="input-label">Start Value  </ion-label>
+                        <input type="number" id="AssStartDate" ng-model="assets.startDate">
+                    </ion-input>
+                    <ion-input class="item item-input " ng-if="AssStartDateIf">
+                        <ion-label class="input-label">Start Date  </ion-label>
+                        <input type="date" id="AssStartDate" ng-model="assets.startDate">
+                    </ion-input>
+                    <span id="spnMsgAssStartDateType" style="color:red"></span>
+                    <ion-input class="item item-input ">
+                        <ion-label class="input-label">Amount($)  </ion-label>
+                        <input type="number" id="AssAmount" ng-model="assets.Amount">
+                    </ion-input>
+                    <span id="spnMsgAssAmount" style="color:red"></span>
+                    <ion-input class="item item-input " ng-if="AssIncomeRateIf">
+                        <ion-label class="input-label">Income Rate(%)  </ion-label>
+                        <input type="number" id="AssIncomeRate" ng-model="assets.incomeRate">
+                    </ion-input>
+                    <span id="spnMsgAssIncomeRate" style="color:red"></span>
+                    <ion-input class="item item-input ">
+                        <ion-label class="input-label">Growth Rate(%)  </ion-label>
+                        <input type="number" id="AssGrowthRate" ng-model="assets.growth">
+                    </ion-input>
+                    <span id="spnMsgAssGrowthRate" style="color:red"></span>
+                    <ion-input class="item item-input " ng-if="AssFrankedIncomeIf">
+                        <ion-label class="input-label">Franked Income(%)  </ion-label>
+                        <input type="number" id="AssFrankedIncome" ng-model="assets.frankedIncome">
+                    </ion-input>
+                    <span id="spnMsgAssFrankedIncome" style="color:red"></span>
+                    <ion-input class="item item-input " ng-if="AssRentIf">
+                        <ion-label class="input-label">Rent  </ion-label>
+                        <input type="number" ng-model="assets.frankedIncome">
+                    </ion-input>
+                    <ion-input class="item item-input " ng-if="AssTaxFreeIf">
+                        <ion-label class="input-label">Tax Free(%)  </ion-label>
+                        <input type="number" ng-model="assets.TaxFree">
+                    </ion-input>
+                    <ion-checkbox ng-if="AssRiskProfilrIf" id="chkTaxable" ng-model="income.riskProfile">Risk Profile</ion-checkbox>
+                    <div class="item item-input item-divider blueColor">Description</div>
+
+                    <ion-input class="item item-input">
+                        <textarea name="txtarea1" id="AssDescription"  ng-model="assets.Description"></textarea>
+                    </ion-input>
+                    <span id="spnMsgDescription" style="color:red"></span>
+                    <button class="button button-block button-positive" type="submit">
+                        Save </button>
+                </form>
+            </ion-content>
+    </ion-modal-view>
+    </ion-view>
+
+</script>
+
+<!-------------------------------------------Liabilities details------------------------------------------------------------>
+
+<script id="liabilitiesDetails.html" type="text/ng-template">
+    <ion-modal-view>
+        <ion-view view-title="Income Details" hide-back-button="false">
+            <!--<ion-nav-buttons side="left">
+      <button class="button button-clear" ng-click="myGoBack()"><i class="ion-chevron-left"></i>Back</button>
+    </ion-nav-buttons>-->
+            <ion-header-bar class="bar bar-header bar-positive">
+                <h1 class="title">Add Liabilities Details</h1>
+            </ion-header-bar>
+            <ion-content>
+                <form name="Liabilities" class="editableForm" ng-submit="saveLiabilities(liabilities)">
+                    <ion-input class="item item-input item-select">
+                        <ion-label class="input-label">  Liability Type</ion-label>
+                        <select ng-model="liabilities.type">
+                            <option>Principle and Interest</option>
+                            <option>Interest Only</option>
+                        </select>
+                    </ion-input>
+
+                    <ion-input class="item item-input item-select">
+                        <ion-label class="input-label">  Owner</ion-label>
+                        <select ng-model="liabilities.OwnerId">
+                            <option value="0">Client</option>
+                            <option value="1">Partner</option>
+                        </select>
+                    </ion-input>
+
+                    <ion-input class="item item-input item-select">
+                        <ion-label class="input-label">  Start Date Type </ion-label>
+                        <select id="LbyStartDateType" ng-change="LbyStartDateFn()" ng-model="liabilities.start_date">
+                            <option value="1">At Client Age</option>
+                            <option value="2">At Partner Age</option>
+                            <option value="3">In Years</option>
+                            <option value="4">At Client Retirement Age</option>
+                            <option value="5">At Partner Retirement Age</option>
+                            <option value="6">Date</option>
+                        </select>
+                    </ion-input>
+                    <ion-input class="item item-input " ng-if="LbyStartValueIf">
+                        <ion-label class="input-label">Start Value  </ion-label>
+                        <input type="number" id="LbyStartValue" ng-model="liabilities.opening">
+                    </ion-input>
+                    <ion-input class="item item-input " ng-if="LbyStartDateIf">
+                        <ion-label class="input-label">Start Date  </ion-label>
+                        <input type="date" id="LbyStartDate" ng-model="liabilities.openin">
+                    </ion-input>
+                    <span id="spnMsgLbyStartDateType" style="color:red"></span>
+                    <ion-input class="item item-input ">
+                        <ion-label class="input-label">Repayment Amount ($)  </ion-label>
+                        <input type="number" id="LbyRepaymentAmount" ng-model="liabilities.openount">
+                    </ion-input>
+                    <span id="spnMsgLbyRepaymentAmount" style="color:red"></span>
+                    <ion-input class="item item-input ">
+                        <ion-label class="input-label">Interest Rate (%)  </ion-label>
+                        <input type="number" id="LbyInterestRate" ng-model="liabilities.interest">
+                    </ion-input>
+                    <span id="spnMsgLbyInterestRate" style="color:red"></span>
+                    <ion-input class="item item-input ">
+                        <ion-label class="input-label">Term  </ion-label>
+                        <input type="number" ng-model="liabilities.term">
+                    </ion-input>
+                    <ion-input class="item item-input ">
+                        <ion-label class="input-label">Tax Deductibility (%)  </ion-label>
+                        <input type="number" id="LbyTaxDeductibility" ng-model="liabilities.TaxDeductibility">
+                    </ion-input>
+                    <span id="spnMsgLbyTaxDeductibility" style="color:red"></span>
+                    <ion-input class="item item-input item-select">
+                        <ion-label class="input-label">  Repayment Freq Type</ion-label>
+                        <select ng-model="liabilities.repayment_frequency">
+                            <option>Yearly</option>
+                            <option>Quarterly</option>
+                            <option>Monthly</option>
+
+                            <option>Fortnightly</option>
+                            <option>Weekly</option>
+                            <option>Semi-Annualy</option>
+                            <option>Single</option>
+                        </select>
+                    </ion-input>
+
+                    <ion-input class="item item-input item-select">
+                        <ion-label class="input-label">  Linked To </ion-label>
+                        <select ng-model="liabilities.linkedToId">
+                            <option>Faimly Home</option>
+                            <option>Investment Property</option>
+                            <option>Investment Protfolio</option>
+                            <option>Personal Assets</option>
+                        </select>
+                    </ion-input>
+                    <ion-input class="item item-input ">
+                        <ion-label class="input-label"> Amount ($)  </ion-label>
+                        <input type="number" id="LbyAmount" ng-model="liabilities.openingAmount">
+                    </ion-input>
+                    <span id="spnMsgLbyAmount" style="color:red"></span>
+                    <div class="item item-input item-divider blueColor">Description</div>
+
+                    <ion-input class="item item-input">
+                        <textarea name="txtarea1" id="LbyDescription" cols="50" rows="4" ng-model="liabilities.Description"></textarea>
+                    </ion-input>
+                    <span id="spnMsgLbyDescription" style="color:red"></span>
+                    <button class="button button-block button-positive" type="submit">
+                        Save </button>
+                </form>
+
+            </ion-content>
+    </ion-modal-view>
+    </ion-view>
+
+</script>
+
+<!------------------------------------------------------super annutaion----------------------------------------------->
+<script id="superAnnutationDetails.html" type="text/ng-template">
+    <ion-modal-view>
+        <ion-view view-title="Super Annutation Details" hide-back-button="false">
+            <!--<ion-nav-buttons side="left">
+      <button class="button button-clear" ng-click="myGoBack()"><i class="ion-chevron-left"></i>Back</button>
+    </ion-nav-buttons>-->
+            <ion-header-bar class="bar bar-header bar-positive">
+                <h1 class="title">Super Annutation Details</h1>
+            </ion-header-bar>
+            <ion-content>
+                <form name="SuperAnnuations" class="editableForm" ng-submit="saveSuperAnnuations(annutation)">
+
+                    <ion-input class="item item-input ">
+                        <ion-label class="input-label">Start Balance  </ion-label>
+                        <input type="number" id="AnnutationStartBalance" ng-model="annutation.Start_balance">
+                    </ion-input>
+                    <span id="spnMsgStartBalance" style="color:red"></span>
+                    <ion-input class="item item-input item-select">
+                        <ion-label class="input-label">  Owner</ion-label>
+                        <select ng-model="annutation.Owner">
+                            <option>Client</option>
+                            <option>Partner</option>
+                        </select>
+                    </ion-input>
+
+                    <ion-input class="item item-input ">
+                        <ion-label class="input-label">NccAmount($)  </ion-label>
+                        <input type="number" id="AnnutationNccAmount" ng-model="annutation.ncc_amount">
+                    </ion-input>
+                    <span id="spnMsgNccAmount" style="color:red"></span>
+                    <ion-input class="item item-input item-select">
+                        <ion-label class="input-label">  Risk Profile</ion-label>
+                        <select ng-model="annutation.RiskProfile">
+                            <option>Aggersive</option>
+                            <option>Defencesive</option>
+                            <option >Test</option>
+                        </select>
+                    </ion-input>
+                    <!--<ion-input class="item item-input ">
+                        <ion-label class="input-label">Risk Profile  </ion-label>
+                        <input type="number" ng-model="annutation.risk_profile">
+                    </ion-input>-->
+
+                    <ion-input class="item item-input item-select">
+                        <ion-label class="input-label">  Fee Type</ion-label>
+                        <select id="AnnutationFeeType" ng-change="AnnutationFeeType()" ng-model="annutation.fee_type">
+                            <option value="1">Percentage</option>
+                            <option value="2">Amount</option>
+                        </select>
+                    </ion-input>
+                    <ion-input class="item item-input " ng-if="AnnutationPercentageIf">
+                        <ion-label class="input-label">Percentage  </ion-label>
+                        <input type="number" id="AnnutationFeePercentage" ng-model="annutation.Percentage">
+                    </ion-input>
+                    <span id="spnMsgFeePercentage" style="color:red"></span>
+                    <ion-input class="item item-input " ng-if="AnnutationAmountIf">
+                        <ion-label class="input-label">Amount ($)  </ion-label>
+                        <input type="number" ng-model="annutation.Amount">
+                    </ion-input>
+                    <ion-input class="item item-input ">
+                        <ion-label class="input-label">Income Rate  </ion-label>
+                        <input type="number" id="AnnutationIncome" ng-model="annutation.Income">
+                    </ion-input>
+                    <span id="spnMsgIncome" style="color:red"></span>
+                    <ion-input class="item item-input ">
+                        <ion-label class="input-label">Growth Rate(%)  </ion-label>
+                        <input type="number" id="AnnutationGrowthRate" ng-model="annutation.growth">
+                    </ion-input>
+                    <span id="spnMsgGrowthRate" style="color:red"></span>
+                    <ion-input class="item item-input ">
+                        <ion-label class="input-label">Franking(%)  </ion-label>
+                        <input type="number" id="AnnutationFranking" ng-model="annutation.Franking">
+                    </ion-input>
+                    <span id="spnMsgFranking" style="color:red"></span>
+                    <ion-input class="item item-input ">
+                        <ion-label class="input-label">Tax Free (%)  </ion-label>
+                        <input type="number" id="AnnutationTaxFree" ng-model="annutation.TaxFree">
+                    </ion-input>
+                    <span id="spnMsgTaxFree" style="color:red"></span>
+                    <div class="item item-input item-divider blueColor">Superannuation Expenses</div>
+
+                    <ion-input class="item item-input ">
+                        <ion-label class="input-label">Insurance Premium($)  </ion-label>
+                        <input type="number" id="AnnutationInsurancePremium" ng-model="annutation.Inco">
+                    </ion-input>
+                    <span id="spnMsgInsurancePremium" style="color:red"></span>
+                    <ion-input class="item item-input item-select">
+                        <ion-label class="input-label">  Indexation Type</ion-label>
+                        <select id="AnnutationIndexationType" ng-change="AnnutationIndexationType()" ng-model="annutation.indexationType">
+                            <option value="1">CPI</option>
+                            <option value="2">Awote</option>
+                            <option value="3">Other</option>
+                        </select>
+                    </ion-input>
+                    <ion-input class="item item-input " ng-if="SuperIndexationIf">
+                        <ion-label class="input-label">Indexation  </ion-label>
+                        <input type="number" ng-model="annutation.Indexation">
+                    </ion-input>
+                    <ion-input class="item item-input item-select">
+                        <ion-label class="input-label">  StartDate Type</ion-label>
+                        <select id="AnnutationStartDateType" ng-change="AnnutationStartDateType()" ng-model="annutation.startDateType">
+                            <option value="1">At Client Age</option>
+                            <option value="2">At Partner Age</option>
+                            <option value="3">In Years</option>
+                            <option value="4">At Client Retirement Age</option>
+                            <option value="5">At Partner Retirement Age</option>
+                            <option value="6">Date</option>
+                        </select>
+                    </ion-input>
+                    <ion-input class="item item-input " ng-if="AnnutationStartValueIf">
+                        <ion-label class="input-label">Start Value  </ion-label>
+                        <input type="number" id="AnnutationStartValue" ng-model="annutation.Indexation">
+                    </ion-input>
+                    <ion-input class="item item-input " ng-if="AnnutationStartDateIf">
+                        <ion-label class="input-label">Start Date  </ion-label>
+                        <input type="date" id="AnnutationStartDate" ng-model="annutation.Indexation">
+                    </ion-input>
+                    <span id="spnMsgStartDate" style="color:red"></span>
+                    <ion-input class="item item-input item-select">
+                        <ion-label class="input-label">  Duration Type</ion-label>
+                        <select id="AnnutationDurationType" ng-change="AnnutationDurationType()" ng-model="annutation.duration_type">
+                            <option value="1">At Client Age</option>
+                            <option value="2">At Partner Age</option>
+                            <option value="3">In Years</option>
+                            <option value="4">At Client Retirement Age</option>
+                            <option value="5">At Partner Retirement Age</option>
+                            <option value="6">Date</option>
+                        </select>
+                    </ion-input>
+
+                    <ion-input class="item item-input " ng-if="AnnutationDurationValueIf">
+                        <ion-label class="input-label">Duration Value  </ion-label>
+                        <input type="number" id="DurationValue" ng-model="annutation.duration_value">
+                    </ion-input>
+                    <ion-input class="item item-input " ng-if="AnnutationDuarationDateIf">
+                        <ion-label class="input-label">Duration Date  </ion-label>
+                        <input type="date" id="DurationDate" ng-model="annutation.DurationDate">
+                    </ion-input>
+                    <span id="spnMsgDurationType" style="color:red"></span>
+                    <button class="button button-block button-positive" type="submit">
+                        Save </button>
+                </form>
+
+            </ion-content>
+
+        </ion-view>
+    </ion-modal-view>
+</script>
+<!-----------------------------------------------pansion details--------------------------------------------------------->
+<script id="pensionDetails.html" type="text/ng-template">
+    <ion-modal-view>
+        <ion-view view-title="Pansion Details" hide-back-button="false">
+            <!--<ion-nav-buttons side="left">
+      <button class="button button-clear" ng-click="myGoBack()"><i class="ion-chevron-left"></i>Back</button>
+    </ion-nav-buttons>-->
+            <ion-header-bar class="bar bar-header bar-positive">
+                <h1 class="title">Add Pension details</h1>
+            </ion-header-bar>
+            <ion-content>
+                <form name="Pensions" class="editableForm" ng-submit="savePensions(pension)">
+
+                    <ion-input class="item item-input ">
+                        <ion-label class="input-label">Start Balance  </ion-label>
+                        <input type="text" ng-model="pension.opening">
+                    </ion-input>
+
+                    <ion-input class="item item-input item-select">
+                        <ion-label class="input-label">  Owner</ion-label>
+                        <select ng-model="pension.OwnerId">
+                            <option value="0">Client</option>
+                            <option value="1">Partner</option>
+                        </select>
+                    </ion-input>
+
+
+                    <ion-input class="item item-input ">
+                        <ion-label class="input-label">NccAmount  </ion-label>
+                        <input type="number" id="PenNccAmount" ng-model="pansion.Ncc_Amount">
+                    </ion-input>
+                    <span id="spnMsgNccAmount" style="color:red"></span>
+                    <!--<ion-input class="item item-input ">
+                        <ion-label class="input-label">Risk Profile  </ion-label>
+                        <input type="number" ng-model="pansion.risk_profile">
+                    </ion-input>-->
+                    <ion-input class="item item-input item-select">
+                        <ion-label class="input-label">  Risk Profile</ion-label>
+                        <select ng-model="pension.OwnerId">
+                            <option value="0">Aggersive</option>
+                            <option value="1">Defencesive</option>
+                            <option value="2">Test</option>
+                        </select>
+                    </ion-input>
+
+                    <ion-input class="item item-input ">
+                        <ion-label class="input-label">Income Rate  </ion-label>
+                        <input type="text" ng-model="pansion.Income">
+                    </ion-input>
+
+                    <ion-input class="item item-input ">
+                        <ion-label class="input-label">Growth Rate (%)  </ion-label>
+                        <input type="number" id="PenGrowthRate" ng-model="pansion.growth">
+                    </ion-input>
+                    <span id="spnMsgGrowthRate" style="color:red"></span>
+                    <ion-input class="item item-input ">
+                        <ion-label class="input-label">Franking (%)  </ion-label>
+                        <input type="number" id="PenFranking" ng-model="pansion.Franking">
+                    </ion-input>
+                    <span id="spnMsgFranking" style="color:red"></span>
+                    <ion-input class="item item-input ">
+                        <ion-label class="input-label">Tax Free ($)  </ion-label>
+                        <input type="number" id="PenTaxFree" ng-model="pansion.TaxFree">
+                    </ion-input>
+
+                    <ion-input class="item item-input item-select">
+                        <ion-label class="input-label">  Pension Payment Type</ion-label>
+                        <select ng-model="pansion.Pansion_Type">
+                            <option>Min</option>
+                            <option>Other</option>
+                        </select>
+                    </ion-input>
+
+                    <ion-input class="item item-input ">
+                        <ion-label class="input-label">Amount ($)  </ion-label>
+                        <input type="number" id="PenAmount" ng-model="pansion.Amount">
+                    </ion-input>
+
+                    <span id="spnMsgAmount" style="color:red"></span>
+                    <ion-checkbox ng-model="pansion.Indexation">Indexation</ion-checkbox>
+
+                    <button class="button button-block button-positive" type="submit">
+                        Save </button>
+                </form>
+
+            </ion-content>
+    </ion-modal-view>
+    </ion-view>
+
+</script>

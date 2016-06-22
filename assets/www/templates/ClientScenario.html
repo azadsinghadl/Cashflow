@@ -1,0 +1,119 @@
+<ion-view >
+  <div class="bar bar-header">
+  <button class="button button-clear button-positive icon ion-chevron-left" ng-click="showDashboard()">Home</button>
+  <div class="h1 title">Client Scenarios</div>
+</div>
+<ion-floating-button ng-click="addScenario()" has-footer="true" button-color="#2AC9AA" icon="ion-plus" iconColor="#fff">
+</ion-floating-button>
+  <ion-content>
+    <div class="card">
+      <div > 
+        <img style="height:205px;width:100%" src="img/Cash-Flow-Scenario.jpg"></img>
+      </div>
+      <div>date:12/05/2015</div>
+    <div><button ng-click="openPopover($event)"><i class="icon ion-ios-gear"></i></button></div>
+      <div class="row">
+        <div class="col col-50">
+          <div>type:current</div>
+          <div>Start Year:F.A. 2014/15</div>
+          <div>Duration:20 Yrs.</div>
+        </div>
+        <div class="col col-50">
+          <div>CPI:3.00</div>
+          <div>Awote:4.00</div>
+          <div>Created By:John Adviser</div>
+        </div>
+      </div>
+      <div>
+        <button class="button button-full button-positive" ng-click="ScenarioDetails()">
+            View Details
+        </button>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
+
+<script id="my-popover.html" type="text/ng-template">
+  <ion-popover-view>
+    <ion-content>
+     <div class="list">
+  <button class="item">
+    Edit
+  </button>
+  <button class="item">
+    Detailed Update
+  </button>
+   <button class="item">
+    Consolidate Update
+  </button>
+   <button class="item">
+    Duplicate
+  </button>
+   <button class="item">
+    Delete
+  </button>
+</div> 
+    </ion-content>
+  </ion-popover-view>
+</script>
+<script id="AddScenario.html" type="text/ng-template">
+    <ion-modal-view>
+            <ion-header-bar class="bar bar-header bar-positive">
+                <h1 class="title">Add New Scenario</h1>
+                
+            </ion-header-bar>
+            <ion-content>
+                <form ng-submit="AddScenario(addScenario)">
+                    <ion-input class="item item-input ">
+                        <ion-label class="input-label">RiskProfile Type<span class="columnR">:</span></ion-label>
+                        <input type="number" ng-model="addScenario.Type">
+                    </ion-input>
+                    <span id="spnMsgRisk" style="color:red"></span>
+                    <ion-input class="item item-input ">
+                        <ion-label class="input-label">Description<span class="columnR">:</span></ion-label>
+                        <input type="text" id="Description" ng-model="addScenario.Desc">
+                    </ion-input>
+                    <span id="spnMsgDescription" style="color:red"></span>
+                    <ion-input class="item item-input ">
+                        <ion-label class="input-label">Duration<span class="columnR">:</span></ion-label>
+                        <input type="number" id="Duration" ng-model="addScenario.duration">
+                    </ion-input>
+                    <span id="spnMsgDuration" style="color:red"></span>
+                    <ion-input class="item item-input item-select">
+                        <ion-label class="input-label"><span class="columnR">:</span>Start Year</ion-label>
+                        <select ng-model="addScenario.startYear">
+                            <option>2016</option>
+                            <option>2017</option>
+                            <option>2018</option>
+                            <option>2019</option>
+                            <option>2020</option>
+                            <option>2021</option>
+                        </select>
+                    </ion-input>
+                    <span id="spnMsg" style="color:red"></span>
+                    <ion-input class="item item-input ">
+                        <ion-label class="input-label">CPI<span class="columnR">:</span></ion-label>
+                        <input type="number" id="CPI" ng-model="addScenario.cpi">
+                    </ion-input>
+                    <span id="spnMsgCPI" style="color:red"></span>
+                    <ion-input class="item item-input ">
+                        <ion-label class="input-label">AWOTE<span class="columnR">:</span></ion-label>
+                        <input type="number" id="AWOTE" ng-model="addScenario.awote">
+                    </ion-input>
+                    <span id="spnMsgAwote" style="color:red"></span>
+                    <ion-input class="item item-input ">
+                        <ion-label class="input-label">ClientRetirementAge<span class="columnR">:</span></ion-label>
+                        <input type="number" id="ClientRetirementAge" ng-model="addScenario.cltRtmntAge">
+                    </ion-input>
+                    <span id="spnMsgClientRetirementAge" style="color:red"></span>
+                    <ion-input class="item item-input ">
+                        <ion-label class="input-label">PartnerRetirementAge<span class="columnR">:</span></ion-label>
+                        <input type="number" id="PartnerRetirementAge" ng-model="addScenario.PtrRtmntAge">
+                    </ion-input>
+                    <span id="spnMsgPartnerRetirementAge" style="color:red"></span>
+                    <button class="button button-block button-positive" ng-click="testing()" type="submit">
+                        Save </button>
+                </form>
+            </ion-content>
+    </ion-modal-view>
+</script>
