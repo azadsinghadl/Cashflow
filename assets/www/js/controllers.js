@@ -825,7 +825,7 @@ CashFlow.controller('IndexCtrl',function($state,$scope){
   })
   
 CashFlow.controller('GoalsCtrl',function($state,$scope){
-console.log("golas");
+console.log("goals");
 
 });
 CashFlow.controller('SettingsCtrl',function($state,$scope){
