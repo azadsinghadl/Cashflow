@@ -4,11 +4,18 @@
   <div class="title" align-title="center">Current Scenario 1</div>
   <button class="button button-clear button-positive icon ion-ios-plus-outline" ng-click="openPopover($event)" ></button>
   <label class="toggle" style="margin-left: 470px;">
-   <input type="checkbox">
-   <div class="track">
-     <div class="handle"></div>
-   </div>
-</label>
+    <input type="checkbox">
+    <div class="track">
+        <div class="handle"></div>
+    </div>
+ </label>
+<div class="list">
+    <select ng-change="enableTab()" ng-model="ScenarioDetails.enableTab">
+      <option value="1">Client</option>
+      <option value="2">Partner</option>
+      <option value="3" selected>OverAll Poistion</option>
+    </select>
+</div>
 </div>
 <!--<ion-nav-buttons side="right">
  
@@ -41,7 +48,6 @@
 
 
     <ion-content class="padding-top">
-        <!--<div class="padding" ng-if="isloadRecentClients" style="height:192px;"><span class="icon ion-loading-d"></span> Loading....</div>-->
         <div id="container" style="margin-top:100px;" ></div>
         <div id="excelArea"  style="height:600px;"></div>
     </ion-content>
@@ -49,7 +55,7 @@
 
 <!-------------------------------------------------------menu form popover---------------------------------------------------------->
 <script id="EditFormList.html" type="text/ng-template">
-  <ion-popover-view>
+  <ion-popover-view style="height:400px">
     <ion-content>
      <div class="list">
   <button class="item" ng-click="addIncome()">

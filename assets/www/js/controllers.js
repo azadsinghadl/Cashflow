@@ -106,6 +106,10 @@ CashFlow.controller('ScenarioDetailsCtrl',['$scope','$state','$ionicPopover','$i
    console.log("ScenarioDetailsCtrl");
 
 
+$scope.$on("$ionicView.enter", function(event, data){
+   // handle event
+   console.log("State Params: ", data.stateParams);
+});
 
    $scope.showScenario = function(){
      $state.go("CashTabs.Scenario");
@@ -798,8 +802,9 @@ $ionicModal.fromTemplateUrl('superAnnutationDetails.html', {
   });
 
   // documentReady fn
+
     $(document).ready(function () {
-        debugger
+        debugger;
         var param2 = '74';
         $scope.isloadRecentClients = true;
         //ReadJsonData(param2);
@@ -807,7 +812,7 @@ $ionicModal.fromTemplateUrl('superAnnutationDetails.html', {
         loadData(scenarioData, false);
         
     });
-  
+
  }])
 
 CashFlow.controller('IndexCtrl',function($state,$scope){
