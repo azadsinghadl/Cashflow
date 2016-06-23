@@ -540,6 +540,7 @@ function loadData(data, refresh) {
         initiateSheet(true);
     else
         initiateSheet(false);
+        
 }
 function initiateSheet(isRefresh) {
     var sheetUsed = 0;
@@ -618,7 +619,7 @@ function renderEntity() {
                 $("#CFtabDroplist select").append($("<option></option>").val(entity[i].id).html(entity[i].fullname).prop('selected', true));
                // enableTabs();
                 //setDefaultTab(1);
-                renderCAGraph(entity[i].id);
+                renderCAGraph(entity[i].id);//primary function
             }
             else if (entity[i].type == 3) {
                 $("#CFtabDroplist select").append($("<option></option>").val(entity[i].id).html('Overall Position').prop('selected', true));
