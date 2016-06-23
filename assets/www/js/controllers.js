@@ -1,9 +1,8 @@
 
 CashFlow.controller('DashboardCtrl',['$scope','$ionicModal','$stateParams','$state',function($scope,$ionicModal, $stateParams,$state) {
-  console.log("inside contriller");
+  console.log("inside controller");
+
   $scope.DetailsScenario = function () {
-    
-    console.log("inside details");
     $state.go("CashTabs.ClientProfile");
 
   };
@@ -37,6 +36,7 @@ $ionicModal.fromTemplateUrl('AddScenario.html', {
 }])
 CashFlow.controller('ClientProfileCtrl',['$scope','$state', function($scope,$state) {
 console.log('ClientProfileCtrl');
+
 $scope.showDashboard = function(){
   $state.go("DashBoard");
 
@@ -46,6 +46,7 @@ $scope.showDashboard = function(){
 CashFlow.controller('ScenarioCtrl',['$scope','$state','$ionicPopover','$ionicModal', function($scope,$state,$ionicPopover,$ionicModal) {
 console.log("ScenarioCtrl");
 // negivation to ScenarioDetails
+
 $scope.ScenarioDetails = function(){
   $state.go('ScenarioDetails');
 };
@@ -103,14 +104,13 @@ $ionicPopover.fromTemplateUrl('my-popover.html', {
 
 }])
 CashFlow.controller('ScenarioDetailsCtrl',['$scope','$state','$ionicPopover','$ionicModal',function($scope,$state,$ionicPopover,$ionicModal){
+   
    console.log("ScenarioDetailsCtrl");
-
-
-$scope.$on("$ionicView.enter", function(event, data){
+   debugger;
+ $scope.$on("$ionicView.beforeEnter", function(event, data){
    // handle event
-   console.log("State Params: ", data.stateParams);
+   console.log("State Params: ", event);
 });
-
    $scope.showScenario = function(){
      $state.go("CashTabs.Scenario");
    };
@@ -125,6 +125,32 @@ $scope.$on("$ionicView.enter", function(event, data){
    }
     $scope.TaxationData = function(){
      debugger;
+      var changeTab = false;
+      var type = 'Taxation';
+        if (type != undefined && type.trim() != "") {
+            //var spread = $("#excelArea").data("spread");
+            var id = '1077'; //$('#CFtabDroplist select').val();
+            if (id == undefined)
+                return false;
+            var sheetId = type + '_' + id;
+            //var sheetId = 'Texation_1079'
+            if (sheetId != undefined && sheetId.trim() != '') {
+                var sheet = spread.getSheetFromName(sheetId);
+                if (sheet != undefined) {
+                    spread.setActiveSheet(sheetId);
+                    changeTab = true;
+                    lastRenderedTab = sheetId;
+                }
+            }
+            switch (type) {
+                case 'CashAccount': renderCAGraph(id); break;
+                case 'Taxation': renderTaxGraph(id); break;
+                case 'Super': renderSuperGraph(id); break;
+                case 'Pension': renderPensionGraph(id); break;
+                case 'Asset': case 'Liability': renderAstLiaGraph(id); break;
+            }
+
+        }
    }
     $scope.SuperData = function(){
      debugger;
@@ -816,7 +842,7 @@ $ionicModal.fromTemplateUrl('superAnnutationDetails.html', {
  }])
 
 CashFlow.controller('IndexCtrl',function($state,$scope){
-
+    
     $scope.ScenarioTab = function(){
       $state.go('CashTabs.Scenario');
     }
