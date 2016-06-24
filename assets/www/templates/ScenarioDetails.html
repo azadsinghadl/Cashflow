@@ -10,10 +10,10 @@
     </div>
  </label>
 <div class="list">
-    <select ng-change="enableTab()" ng-model="ScenarioDetails.enableTab">
+    <select ng-change="EnableTab()" ng-model="enableTab">
       <option value="1">Client</option>
       <option value="2">Partner</option>
-      <option value="3" selected>OverAll Poistion</option>
+      <option value="3" >OverAll Poistion</option>
     </select>
 </div>
 </div>
@@ -21,26 +21,31 @@
  
         <button class="button button-clear btn-back" ng-click="addContent()" style="width: 44px !important;"><i class="ion-ios-plus-outline" style="font-size: 2.4rem;"></i></button>
     </ion-nav-buttons>-->
+<script>
 
+</script>
     <div class="tabs-striped tabs-top scenario-Tabs">
         <div class="tabs">
-            <a class="tab-item active" ng-click="AssetsData()">
+            <a class="tab-item active" ng-click="CashAccountData()" ng-if="CashAccountIf">
+        CashAcounts
+      </a>
+            <a class="tab-item " ng-click="AssetsData()" ng-if="AssetsDataIf">
         Assets
       </a>
-            <a class="tab-item " ng-click="liabilityData()">
+            <a class="tab-item " ng-click="liabilityData()" ng-if="LiabilitiesDataIf">
         
         Liabilities
       </a>
-            <a class="tab-item" ng-click="TaxationData()">
+            <a class="tab-item"  ng-click="TaxationData()" ng-if="TaxationDataIf">
         Taxation
       </a>
-            <a class="tab-item" ng-click="SuperData()">
+            <a class="tab-item" ng-click="SuperData()" ng-if="SuperDataIf">
         Super
       </a>
-            <a class="tab-item" ng-click="PensionData()">
+            <a class="tab-item" ng-click="PensionData()" ng-if="PensionDataIf">
         Pension
       </a>
-            <a class="tab-item" ng-click="Age_PensionData()">
+            <a class="tab-item" ng-click="Age_PensionData()" ng-if="Age_PensionDataIf">
         Age Pension
       </a>
         </div>

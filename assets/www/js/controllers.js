@@ -107,6 +107,59 @@ CashFlow.controller('ScenarioDetailsCtrl',['$scope','$state','$ionicPopover','$i
    
    console.log("ScenarioDetailsCtrl");
    debugger;
+//    selection of tabs
+
+   $scope.enableTab = '3';
+   $scope.AssetsDataIf = true;
+   $scope.LiabilitiesDataIf = true;
+   $scope.CashAccountIf = true;
+   $scope.EnableTab = function(){
+       console.log();
+       if($scope.enableTab == '3'){
+           $scope.CashAccountIf = true;
+           $scope.PensionDataIf = false;
+           $scope.SuperDataIf = false;
+           $scope.TaxationDataIf = false;
+           $scope.Age_PensionDataIf = false;
+       }
+       else{
+           $scope.CashAccountIf = false;
+           $scope.PensionDataIf = true;
+           $scope.SuperDataIf = true;
+           $scope.TaxationDataIf = true;
+           $scope.Age_PensionDataIf = true;
+       }
+       
+       this.setActiveTab('1077');
+   };
+$scope.setActiveTab = function (id, name) {
+    debugger;
+    console.log("inside set active");
+        if (id != undefined) {
+            var type = 1; //hardcoded value for testing
+            // $.each(entity, function (index, ent) {
+            //     if (ent.id == id)
+            //         type = ent.type;
+            // });
+            switch (type) {
+                case 1: enableTabs();
+                    if (partnerAge >= 0)
+                        $('#CFtabHead label[for="CashAccount"]').parent().css("display", "none");                    
+                    break;
+                case 2: enableTabs();
+                    $('#CFtabHead label[for="CashAccount"]').parent().css("display", "none");                    
+                    break;
+                case 3: enableTabs();
+                    $('#CFtabHead label[for="Pension"]').parent().css("display", "none");
+                    $('#CFtabHead label[for="AgePension"]').parent().css("display", "none");
+                    $('#CFtabHead label[for="Super"]').parent().css("display", "none");
+                    $('#CFtabHead label[for="Taxation"]').parent().css("display", "none");                    
+                    break;
+            }
+            setDefaultTab(type, name);
+        }
+    }
+
  $scope.$on("$ionicView.beforeEnter", function(event, data){
    // handle event
    console.log("State Params: ", event);
@@ -117,49 +170,47 @@ CashFlow.controller('ScenarioDetailsCtrl',['$scope','$state','$ionicPopover','$i
    $scope.addContent = function(){
      debugger;
    };
+   $scope.CashAccountData = function(){
+       debugger;
+       var type = 'CashAccount';
+       var id = '1079';
+       OpenSheet(type,id);
+   };
    $scope.AssetsData = function(){
      debugger;
+     var type = 'Asset';
+     var id = '1077';
+     OpenSheet(type,id);
    };
     $scope.liabilityData = function(){
+     var type = 'Liability';
+     var id = '1077';
      debugger;
+     OpenSheet(type,id);
    }
     $scope.TaxationData = function(){
      debugger;
-      var changeTab = false;
-      var type = 'Taxation';
-        if (type != undefined && type.trim() != "") {
-            //var spread = $("#excelArea").data("spread");
-            var id = '1077'; //$('#CFtabDroplist select').val();
-            if (id == undefined)
-                return false;
-            var sheetId = type + '_' + id;
-            //var sheetId = 'Texation_1079'
-            if (sheetId != undefined && sheetId.trim() != '') {
-                var sheet = spread.getSheetFromName(sheetId);
-                if (sheet != undefined) {
-                    spread.setActiveSheet(sheetId);
-                    changeTab = true;
-                    lastRenderedTab = sheetId;
-                }
-            }
-            switch (type) {
-                case 'CashAccount': renderCAGraph(id); break;
-                case 'Taxation': renderTaxGraph(id); break;
-                case 'Super': renderSuperGraph(id); break;
-                case 'Pension': renderPensionGraph(id); break;
-                case 'Asset': case 'Liability': renderAstLiaGraph(id); break;
-            }
-
-        }
+     var type = 'Taxation';
+     var id = '1077';
+     OpenSheet(type,id);
+      
    }
     $scope.SuperData = function(){
      debugger;
+     var type = 'Super';
+     var id = '1077';
+     OpenSheet(type,id);
    }
     $scope.PensionData = function(){
      debugger;
+     var type = 'Pension';
+     var id = '1077';
+     OpenSheet(type,id);
    }
     $scope.Age_PensionData = function(){
      debugger;
+     var type = 'Taxation';
+     var id = '1077';
    };
 
    //ionic popover to Scenario forms
